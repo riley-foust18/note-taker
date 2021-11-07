@@ -1,8 +1,19 @@
-[
+{
+  "notes": [
     {
-        "title":"Test Title",
-        "text":"Test text"
+      "title": "New note",
+      "text": "Test note #456",
+      "id": "c69945fa-75cd-4ea2-8ae2-04f8a000b9e9"
+    },
+    {
+      "title": "Another one",
+      "text": "Oh boy look at this",
+      "id": "00306c99-dfe8-444f-a049-d52eb806bd7c"
+    },
+    {
+      "title": "44",
+      "text": "444",
+      "id": "4bc7a43e-5b05-4a0c-ab79-b45ca77416fa"
     }
-]
-
-
+  ]
+}
