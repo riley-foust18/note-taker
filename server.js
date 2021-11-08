@@ -2,6 +2,7 @@ const fs= require("fs");
 const path = require("path");
 const express = require("express");
 const PORT = process.env.PORT || 3001;
+// Creates unique ID
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
@@ -12,6 +13,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const {notes} = require("./db/db.json");
 
+function updateDb(id, notesArray) {
+  const deletedNote = id;
+  for (let i = 0; i < notes.length; i++) {
+    if (deletedNote === notes[i].id) {
+      notes.splice(i, 1);
+      fs.writeFileSync(
+        path.join(__dirname, "./db/db.json"),
+        JSON.stringify({notes: notesArray}, null, 2)
+      );
+    }
+  }
+}
+
 function createNewNote(body, notesArray) {
   const newNote = body
   notesArray.push(newNote);
@@ -19,9 +33,8 @@ function createNewNote(body, notesArray) {
     path.join(__dirname, "./db/db.json"),
     JSON.stringify({notes: notesArray}, null, 2)
   );
-  // return finished code to the post route for response
   return newNote;
-}
+};
 
 app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
@@ -37,7 +50,13 @@ app.post("/api/notes", (req, res) => {
 
   const newNote = createNewNote(req.body, notes);
   res.json(newNote);
-})
+});
+
+app.delete("/api/notes/:id" , (req, res) => {
+  const params = req.params.id
+  updateDb(params, notes);
+  res.redirect('');
+});
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
