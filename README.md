@@ -1,6 +1,6 @@
   # Note Taker
-
   
+  ![](./public/assets/images/note-taker.png)
 
   ## Description
 
